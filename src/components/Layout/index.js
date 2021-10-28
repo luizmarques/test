@@ -3,10 +3,14 @@ import styled from "styled-components";
 import Footer from "./Footer";
 import Header from "./Header";
 
-export const Layout = ({ children, startTransparent = false }) => {
+export const Layout = ({
+  children,
+  withoutMargin,
+  startTransparent = false,
+}) => {
   return (
     <React.Fragment>
-      <Header />
+      <Header startTransparent={startTransparent}/>
       <WrapStyled $startTransparent={startTransparent}>{children}</WrapStyled>
       <Footer />
     </React.Fragment>
@@ -15,7 +19,8 @@ export const Layout = ({ children, startTransparent = false }) => {
 
 const WrapStyled = styled.div`
   ${(props) =>
-    !props.$startTransparent && `
+    !props.$startTransparent &&
+    `
     padding: 77px;
   `}
 `;
