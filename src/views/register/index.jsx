@@ -21,7 +21,7 @@ const Login = () => {
       name: yup
         .string()
         .required("Preencha o nome.")
-        .min(5, "Informe pelo menos 5 caractéres."),
+        .min(5, "Informe pelo menos 5 caracteres."),
       email: yup
         .string()
         .required("Preencha o e-mail.")
@@ -30,8 +30,8 @@ const Login = () => {
       password: yup
         .string()
         .required("Preencha a senha.")
-        .min(8, "Informe pelo menos 8 caractéres.")
-        .max(50, "Informe no máximo 50 caractéres."),
+        .min(8, "Informe pelo menos 8 caracteres.")
+        .max(50, "Informe no máximo 50 caracteres."),
       agree: yup.boolean().equals([true], "É preciso aceitar os termos."),
     }),
     onSubmit: (values) => console.log(values),
