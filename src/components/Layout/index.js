@@ -11,7 +11,9 @@ export const Layout = ({
   return (
     <React.Fragment>
       <Header startTransparent={startTransparent}/>
-      <WrapStyled $startTransparent={startTransparent}>{children}</WrapStyled>
+      <WrapStyled $startTransparent={startTransparent}>
+        {children}
+        </WrapStyled>
       <Footer />
     </React.Fragment>
   );

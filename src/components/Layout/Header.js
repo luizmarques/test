@@ -28,21 +28,21 @@ const Header = ({ startTransparent }) => {
                 <Button
                   $transparent
                   forwardedAs={Link}
-                  to="#"
+                  to="/"
                   className="mt-2 mt-lg-0 ml-lg-4"
                 >
                   Inicio
                 </Button>
                 <Button
                   forwardedAs={Link}
-                  to="#"
+                  to="/register"
                   className="mt-2 mt-lg-0 ml-lg-4"
                 >
                   Criar Conta
                 </Button>
                 <Button
                   forwardedAs={Link}
-                  to="#"
+                  to="/login"
                   className="mt-2 mt-lg-0 ml-lg-4"
                 >
                   Fazer Login
