@@ -5,8 +5,11 @@ import { Layout } from "../../components/Layout";
 import { PageTitle } from "../../components/PageTitle";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { loginUser } from "../../services/authService";
+import { useHistory } from "react-router";
 
 const Login = () => {
+  const history = useHistory();
   const formik = useFormik({
     initialValues: {
       email: "contato@liniker.com.br",
@@ -23,9 +26,17 @@ const Login = () => {
         .min(8, "Preencha senha com no mínimo 8 caracteres"),
     }),
     onSubmit: async (values, { setErrors }) => {
-      setErrors({
-        submit: "deu ruim ",
-      });
+      try {
+        const result = await loginUser(values);
+        // dispatch
+        console.log(result.data);
+        history.push("/novo-pedido");
+      } catch (error) {
+        console.log("error", error);
+        setErrors({
+          submit: "deu ruim ",
+        });
+      }
     },
   });
 
