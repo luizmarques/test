@@ -35,7 +35,7 @@ const Header = ({ startTransparent }) => {
                 </Button>
                 <Button
                   forwardedAs={Link}
-                  to="/register"
+                  to="/cadastro"
                   className="mt-2 mt-lg-0 ml-lg-4"
                 >
                   Criar Conta
