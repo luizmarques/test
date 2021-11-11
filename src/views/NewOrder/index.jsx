@@ -4,7 +4,7 @@ import { PageTitle } from "../../components/PageTitle";
 import { EstimateForm } from "./EstimateForm";
 import { EstimateDetails } from "./EstimateDetails";
 
-const NewOrder = () => {
+const NewOrder = ({ label, ...inputProps }) => {
   return (
     <Layout>
       <Container>

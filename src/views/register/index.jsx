@@ -34,7 +34,7 @@ const Login = () => {
         .max(50, "Informe no máximo 50 caracteres."),
       agree: yup.boolean().equals([true], "É preciso aceitar os termos."),
     }),
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => undefined,
   });
 
   const getFieldProps = (fieldName) => ({

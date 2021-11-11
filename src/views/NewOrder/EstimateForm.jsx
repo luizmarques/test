@@ -1,6 +1,7 @@
 import { Form } from "react-bootstrap";
 import { Button } from "../../components/Button";
 import { FormField } from "../../components/FormField";
+import AutocompleteField from "../../components/AutocompleteField";
 import * as yup from "yup";
 import { loginUser } from "../../services/authService";
 import { useHistory } from "react-router";
@@ -49,15 +50,20 @@ export const EstimateForm = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit}>
-      <FormField
+      {JSON.stringify(formik.values)}
+     
+      <AutocompleteField
         {...getFieldProps("pickupAddress")}
         label="Endereço de retirada (A)"
         placeholder="Informe o endereço completo"
+        onChange={(address) => formik.setFieldValue("pickupAddress", address)}
       />
-      <FormField
+     
+      <AutocompleteField
         {...getFieldProps("deliveryAddress")}
         label="Endereço de entrega (B)"
         placeholder="Informe o endereço completo"
+        onChange={(address) => formik.setFieldValue("deliveryAddress", address)}
       />
       <FormField
         {...getFieldProps("comments")}

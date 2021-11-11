@@ -8,7 +8,7 @@ export const loginUser = async ({ email, password }) => {
     http.defaults.headers["Authorization"] = `Bearer ${response.data.token}`;
     return setResponse(null, response.data);
   } catch (error) {
-    return setResponse(error, {});
+    return setResponse(error.response, null);
   }
 };
 

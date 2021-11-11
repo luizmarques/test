@@ -1,4 +1,4 @@
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Col, Container, Form, Row } from "react-bootstrap";
 import { Button } from "../../components/Button";
 import { FormField } from "../../components/FormField";
 import { Layout } from "../../components/Layout";
@@ -9,8 +9,10 @@ import { loginUser } from "../../services/authService";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../store/slice/userSlice";
+import { useState } from "react";
 
 const Login = (props) => {
+  const [generalError, setError] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
   const formik = useFormik({
@@ -29,19 +31,13 @@ const Login = (props) => {
         .min(8, "Preencha senha com no mínimo 8 caracteres"),
     }),
     onSubmit: async (values, { setErrors }) => {
-      try {
-        const { error, response } = await loginUser(values);
-
-        if (!error) {
-          dispatch(updateUser(response));
-          history.push("/novo-pedido");
-          return;
-        }
-      } catch (error) {
-        console.log("error", error);
-        setErrors({
-          submit: "deu ruim ",
-        });
+      const { error, response } = await loginUser(values);
+      if (!error) {
+        dispatch(updateUser(response));
+        history.push("/novo-pedido");
+        return;
+      } else {
+        setError("Erro ao tentar fazer o login, verique seu e-mail e/ou senha");
       }
     },
   });
@@ -83,6 +79,13 @@ const Login = (props) => {
                 Entrar
               </Button>
             </Form>
+
+            <br />
+            {generalError && (
+              <Alert onClose={() => setError("")} variant="danger" dismissible>
+                {generalError}
+              </Alert>
+            )}
           </Col>
         </Row>
       </Container>
