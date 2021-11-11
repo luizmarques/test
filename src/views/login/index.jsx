@@ -7,13 +7,16 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { loginUser } from "../../services/authService";
 import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../store/slice/userSlice";
 
-const Login = () => {
+const Login = (props) => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const formik = useFormik({
     initialValues: {
-      email: "contato@liniker.com.br",
-      password: "",
+      email: "bruno.peres@prof.infnet.edu.br",
+      password: "12345678",
     },
     validationSchema: yup.object().shape({
       email: yup
@@ -27,10 +30,13 @@ const Login = () => {
     }),
     onSubmit: async (values, { setErrors }) => {
       try {
-        const result = await loginUser(values);
-        // dispatch
-        console.log(result.data);
-        history.push("/novo-pedido");
+        const { error, response } = await loginUser(values);
+
+        if (!error) {
+          dispatch(updateUser(response));
+          history.push("/novo-pedido");
+          return;
+        }
       } catch (error) {
         console.log("error", error);
         setErrors({

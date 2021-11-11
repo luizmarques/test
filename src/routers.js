@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import Home from "./views/Home";
@@ -7,7 +8,7 @@ import NotFoundView from "./views/NotFoundView";
 import Register from "./views/Register";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isUSerLoggedIn = false;
+  const isUSerLoggedIn = useSelector((state) => state.user.userLoggedIn);
   if (!isUSerLoggedIn) {
     return <Redirect to="/login" />;
   }
@@ -21,10 +22,8 @@ const Routers = () => {
         <Route path="/" component={Home} exact />
         <Route path="/login" component={Login} exact />
         <Route path="/cadastro" component={Register} exact />
-
         <PrivateRoute path="/novo-pedido" component={NewOrder} exact />
-
-        <Route path="*" component={NotFoundView} /> 
+        <Route path="*" component={NotFoundView} />
       </Switch>
     </BrowserRouter>
   );
