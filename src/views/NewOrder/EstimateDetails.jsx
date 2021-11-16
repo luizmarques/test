@@ -1,9 +1,21 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import EstimateMap from "./EstimateMap";
 
 export const EstimateDetails = () => {
+  const hasEstimate = useSelector((state) => !!state.order.currentEstimate);
+
+  if (!hasEstimate) {
+    return (
+      <BoxDeafault>
+        <p className="m-0">Preencha os dados ao lado para ver o preço</p>
+      </BoxDeafault>
+    );
+  }
+
   return (
     <BoxDeafault>
-      <p className="m-0">Preencha os dados ao lado para ver o preço</p>
+      <EstimateMap />
     </BoxDeafault>
   );
 };
@@ -18,4 +30,5 @@ const BoxDeafault = styled.div`
   text-align: center;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 `;

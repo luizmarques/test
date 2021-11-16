@@ -8,7 +8,6 @@ const AutocompleteField = ({ label, value, onChange, ...inputProps }) => {
 
   const handleChange = () => {
     const place = autoCompleteRef.current.getPlace();
-    console.log(place);
     if (place.formatted_address) {
       const address = {
         address: place.formatted_address,

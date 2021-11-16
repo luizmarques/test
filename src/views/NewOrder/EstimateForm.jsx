@@ -3,15 +3,16 @@ import { Button } from "../../components/Button";
 import { FormField } from "../../components/FormField";
 import AutocompleteField from "../../components/AutocompleteField";
 import * as yup from "yup";
-import { loginUser } from "../../services/authService";
-import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../../store/slice/userSlice";
 import { useFormik } from "formik";
+import { createEstimative } from "../../services/order";
+import {
+  setCurrentEstimate,
+} from "../../store/slice/orderSlice";
 
 export const EstimateForm = () => {
+
   const dispatch = useDispatch();
-  const history = useHistory();
   const formik = useFormik({
     initialValues: {
       pickupAddress: "",
@@ -24,19 +25,15 @@ export const EstimateForm = () => {
       comments: yup.string().required("Informe as instuções."),
     }),
     onSubmit: async (values, { setErrors }) => {
+      setErrors({});
       try {
-        const { error, response } = await loginUser(values);
-
-        if (!error) {
-          dispatch(updateUser(response));
-          history.push("/novo-pedido");
-          return;
-        }
+        const result = await createEstimative(values);
+        dispatch(setCurrentEstimate(result.data));
       } catch (error) {
-        console.log("error", error);
-        setErrors({
-          submit: "deu ruim ",
-        });
+        //   console.log("error", error);
+        //   setErrors({
+        //     submit: "deu ruim ",
+        // });
       }
     },
   });
@@ -50,15 +47,13 @@ export const EstimateForm = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit}>
-      {JSON.stringify(formik.values)}
-     
       <AutocompleteField
         {...getFieldProps("pickupAddress")}
         label="Endereço de retirada (A)"
         placeholder="Informe o endereço completo"
         onChange={(address) => formik.setFieldValue("pickupAddress", address)}
       />
-     
+
       <AutocompleteField
         {...getFieldProps("deliveryAddress")}
         label="Endereço de entrega (B)"
