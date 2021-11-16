@@ -31,7 +31,7 @@ const EstimateMap = () => {
         <GoogleMap
           mapContainerStyle={{
             minHeight: 330,
-            minWidth: 370,
+            minWidth: 440,
             flex: "1",
           }}
           center={{ lat: 0, lng: 0 }}

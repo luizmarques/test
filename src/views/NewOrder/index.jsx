@@ -3,8 +3,12 @@ import { Layout } from "../../components/Layout";
 import { PageTitle } from "../../components/PageTitle";
 import { EstimateForm } from "./EstimateForm";
 import { EstimateDetails } from "./EstimateDetails";
+import EstimateFinish from "./EstimateFinish";
+import { useSelector } from "react-redux";
 
 const NewOrder = ({ label, ...inputProps }) => {
+  const currentEstimate = useSelector((state) => state.order.currentEstimate);
+
   return (
     <Layout>
       <Container>
@@ -17,6 +21,7 @@ const NewOrder = ({ label, ...inputProps }) => {
             <EstimateDetails />
           </Col>
         </Row>
+        {!!currentEstimate && <EstimateFinish estimative={currentEstimate} />}
       </Container>
     </Layout>
   );
