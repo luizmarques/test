@@ -32,7 +32,7 @@ const Login = (props) => {
     }),
     onSubmit: async (values, { setErrors }) => {
       const { error, response } = await loginUser(values);
-      if (!error) {
+      if (response) {
         dispatch(updateUser(response));
         history.push("/novo-pedido");
         return;

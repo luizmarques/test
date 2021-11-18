@@ -5,9 +5,12 @@ export const loginUser = async ({ email, password }) => {
   try {
     const response = await http.post("/login", { email, password });
     setStorageItem("user", JSON.stringify(response.data));
-    http.defaults.headers["Authorization"] = `Bearer ${response.data.token}`;
+    if (response.data.token) {
+      http.defaults.headers["Authorization"] = `Bearer ${response.data.token}`;
+    }
     return setResponse(null, response.data);
   } catch (error) {
+    console.log('error', error.response)
     return setResponse(error.response, null);
   }
 };

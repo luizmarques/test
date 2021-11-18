@@ -1,7 +1,28 @@
 import { Container } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import styled from "styled-components";
+import PayPalButton from "../../components/PaypalButton";
+import {  createOrder } from "../../services/order";
+import { clearEstimate } from "../../store/slice/orderSlice";
 
 const EstimateFinish = ({ estimative }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const handleSuccessOrder = async (details) => {
+    const { error } = await createOrder({
+      estimateId: estimative._id,
+      gatewayId: details.id,
+      comments: estimative.comments,
+    });
+
+    if (!error) {
+      dispatch(clearEstimate());
+      history.push("/novo-pedido/sucesso");
+      return;
+    }
+  };
+
   return (
     <Box>
       <Title>Estimativa de Valores para sua Entrega</Title>
@@ -20,6 +41,13 @@ const EstimateFinish = ({ estimative }) => {
             style: "currency",
             currency: "BRL",
           })}
+        </ReportItem>
+        <hr />
+        <ReportItem>
+          Seguem os metodos de pagamentos:
+          <br />
+          <br />
+          <PayPalButton estimative={estimative} onSuccess={handleSuccessOrder} />
         </ReportItem>
       </Container>
     </Box>

@@ -8,11 +8,15 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Header = ({ startTransparent }) => {
-  const [isTransparent, ] = useState(startTransparent);
+  const [isTransparent] = useState(startTransparent);
 
   return (
     <Nav>
-      <Navbar bg={isTransparent ? undefined : "white"} fixed="top" expand="lg">
+      <NavbarStyled
+        bg={isTransparent ? undefined : "white"}
+        fixed="top"
+        expand="lg"
+      >
         <Container>
           <Navbar.Brand href="#home">
             <img src={isTransparent ? LogoWhite : Logo} alt="Fox Entregas" />
@@ -51,7 +55,7 @@ const Header = ({ startTransparent }) => {
             </Nav>
           </CollapseStyled>
         </Container>
-      </Navbar>
+      </NavbarStyled>
     </Nav>
   );
 };
@@ -62,4 +66,15 @@ const ToggleStyled = styled(Navbar.Toggle)`
   border: none;
 `;
 
-const CollapseStyled = styled(Navbar.Collapse)``;
+const CollapseStyled = styled(Navbar.Collapse)`
+  @media screen and (max-width: 768px) {
+  }
+`;
+const NavbarStyled = styled(Navbar)`
+  nav {
+    @media screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+`;

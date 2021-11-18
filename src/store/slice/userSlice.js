@@ -3,13 +3,16 @@ import http from "../../config/http";
 import { getStorageItem } from "../../config/storage";
 
 const user = JSON.parse(getStorageItem("user"));
-http.defaults.headers["Authorization"] = `Bearer ${user.token}`;
+console.log('user', !!user)
+if (user?.token) {
+  http.defaults.headers["Authorization"] = `Bearer ${user?.token}`;
+}
 const initialState = {
   userLoggedIn: !!user,
   user: user ? user : {},
 };
 
-export const slice = createSlice({ 
+export const slice = createSlice({
   name: "user",
   initialState,
   reducers: {
