@@ -31,7 +31,7 @@ const Login = (props) => {
         .min(8, "Preencha senha com no mínimo 8 caracteres"),
     }),
     onSubmit: async (values, { setErrors }) => {
-      const { error, response } = await loginUser(values);
+      const { response } = await loginUser(values);
       if (response) {
         dispatch(updateUser(response));
         history.push("/novo-pedido");

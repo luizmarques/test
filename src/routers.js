@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
+import history from "./config/history";
 
 import Home from "./views/Home";
 import Login from "./views/Login";
@@ -10,7 +11,6 @@ import Register from "./views/Register";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const isUSerLoggedIn = useSelector((state) => state.user.userLoggedIn);
-  console.log("isUSerLoggedIn", isUSerLoggedIn);
   if (!isUSerLoggedIn) {
     return <Redirect to="/login" />;
   }
@@ -19,7 +19,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
 const Routers = () => {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
         <Route path="/" component={Home} exact />
         <Route path="/login" component={Login} exact />
@@ -29,7 +29,7 @@ const Routers = () => {
           
         <Route path="*" component={NotFoundView} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 

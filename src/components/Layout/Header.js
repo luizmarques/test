@@ -6,10 +6,11 @@ import { FaBars } from "react-icons/fa";
 import { Button } from "../Button/";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { getStorageItem } from "../../config/storage";
 
 const Header = ({ startTransparent }) => {
   const [isTransparent] = useState(startTransparent);
-
+  const hasUser = getStorageItem('user')
   return (
     <Nav>
       <NavbarStyled
@@ -39,10 +40,10 @@ const Header = ({ startTransparent }) => {
                 </Button>
                 <Button
                   forwardedAs={Link}
-                  to="/cadastro"
+                  to={!!hasUser ? "/novo-pedido" : "/cadastro"}
                   className="mt-2 mt-lg-0 ml-lg-4"
                 >
-                  Criar Conta
+                  {!!hasUser ? "Novo Pedido" : "Criar Conta"}
                 </Button>
                 <Button
                   forwardedAs={Link}

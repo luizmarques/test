@@ -3,7 +3,6 @@ import http from "../../config/http";
 import { getStorageItem } from "../../config/storage";
 
 const user = JSON.parse(getStorageItem("user"));
-console.log('user', !!user)
 if (user?.token) {
   http.defaults.headers["Authorization"] = `Bearer ${user?.token}`;
 }
@@ -20,6 +19,7 @@ export const slice = createSlice({
       state.userLoggedIn = true;
       state.user = action.payload;
     },
+    
   },
 });
 
